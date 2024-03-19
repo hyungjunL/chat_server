@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%d{[yyyy.MM.dd HH:mm:ss.SSS]} [%-5level] [%thread] %msg \(%F:%L\) %n</Pattern>
+			<!-- <Pattern>%d{[yyyy.MM.dd HH:mm:ss.SSS]} [%-5p] %m (%F:%L)%n</Pattern>//-->
+		</encoder>
+	</appender>
+
+  	<appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>/test/log/page.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		    <!-- daily rollover -->
+			<FileNamePattern>/test/log/page.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>			
+		</rollingPolicy>
+
+		<encoder>
+			<Pattern>.%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg \(%F:%L\)%n</Pattern>
+		</encoder> 	    
+  	</appender>	
+
+	<!-- 
+	<logger name="gb" additivity="true">
+	    <level value="DEBUG" />
+		<appender-ref ref="dailyRollingFileAppender"/>
+	</logger>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="dailyRollingFileAppender"/>
+		<appender-ref ref="consoleAppender" />
+	</root>
+	-->
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="dailyRollingFileAppender"/>
+	</root>
+
+    <!-- <logger name="gb.khnp.session.rule.repository" level="ERROR" />
+    <logger name="gb.khnp.session.iot.repository" level="ERROR" />
+    <logger name="gb.khnp.session.event.repository" level="ERROR" />
+    <logger name="gb.khnp.session.common.repository" level="ERROR" />
+    <logger name="gb.khnp.session.camera.repository" level="ERROR" />
+    <logger name="gb.khnp.session.auth.repository" level="ERROR" />
+    <logger name="gb.khnp.session.common.filter" level="ERROR" />-->
+
+    <root>
+        <level value="DEBUG" />
+    </root>
+</configuration>

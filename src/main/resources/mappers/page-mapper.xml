@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.repository.PageMapper">
+	<select id="selectEventList" resultType="study.domain.EventVO">
+		SELECT EVENT_SEQ AS eventSeq,
+		       EVENT_TP_CD AS eventTpCd,
+		       EVENT_TIME AS eventTime,
+		       ALARM_DETAIL_YN AS alarmDetailYn,
+		       REG_DT AS regDt
+		  FROM EVENT
+		 LIMIT 25
+	</select>
+	
+	<insert id="eventInsert" parameterType="study.domain.EventVO">
+		INSERT INTO EVENT (EVENT_TP_CD,
+		                   EVENT_TIME,
+		                   ALARM_DETAIL_YN,
+		                   REG_DT)
+		            VALUES(#{eventTpCd},
+		                   #{eventTime},
+		                   #{alarmDetailYn},
+		                   #{regDt})
+	</insert>
+	
+	<select id="selectEventDetail" parameterType="String" resultType="study.domain.EventVO">
+		SELECT EVENT_SEQ AS eventSeq,
+		       EVENT_TP_CD AS eventTpCd,
+		       EVENT_TIME AS eventTime,
+		       ALARM_DETAIL_YN AS alarmDetailYn,
+		       REG_DT AS regDt
+		  FROM EVENT
+		 WHERE EVENT_SEQ = CAST(#{eventSeq} AS INTEGER)
+	</select>
+</mapper>
